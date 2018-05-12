@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--tools:context=".MainActivity"--><!--android:background="#423752"--><!--android:orientation="horizontal"--><!--android:weightSum="2">-->
+
+<!--&lt;!&ndash;<devlight.io.library.ntb.NavigationTabBar&ndash;&gt;--><!--&lt;!&ndash;android:id="@+id/ntb"&ndash;&gt;--><!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;--><!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_animation_duration="400"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_preview_colors="@array/colors"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_corners_radius="10dp"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_active_color="#fff"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_inactive_color="#000"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badged="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_titled="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_scaled="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_tinted="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_title_mode="all"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_position="right"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_gravity="top"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_bg_color="#ffff0000"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_title_color="#ffffffff"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_typeface="fonts/custom_typeface.ttf"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_use_typeface="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_swiped="true"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_bg_color="#000"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_icon_size_fraction="0.5"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_badge_size="10sp"&ndash;&gt;--><!--&lt;!&ndash;app:ntb_title_size="10sp"/>&ndash;&gt;-->
+
+<!--<devlight.io.library.ntb.NavigationTabBar--><!--app:ntb_title_mode="all"--><!--app:ntb_titled="true"--><!--app:ntb_title_size="14sp"--><!--android:id="@+id/ntb_vertical"--><!--android:layout_width="50dp"--><!--android:layout_height="match_parent"--><!--app:ntb_preview_colors="@array/vertical_ntb"/>-->
+
+<!--<android.support.v4.view.ViewPager--><!--android:id="@+id/vp_vertical_ntb"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="1"/>--><!--</LinearLayout>-->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#24303A"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="@drawable/custom_gradient"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                app:layout_collapseMode="parallax"
+                app:title="@string/logo_desc">
+                <!--app:contentScrim="#4D2C66"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--app:expandedTitleTextAppearance="@null"-->
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/transparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:title="">
+
+                    <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/myNestedScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/custom_gradient"
+                    android:fillViewport="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:orientation="vertical">
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/myRecyclerViewDangTienHanh"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:layout_margin="2dp"/>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent">
+                                <TextView
+                                    android:id="@+id/txtSliderShow"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:ellipsize="marquee"
+                                    android:focusable="true"
+                                    android:layout_margin="1dp"
+                                    android:focusableInTouchMode="true"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:text="CEO of Nasdaq: Could Open A Cryptocurrency Exchange In The Future something that provides a fair experience for investors"
+                                    android:textColor="#fff"
+                                    android:textSize="14sp" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    </android.support.v4.widget.NestedScrollView>
+
+
+                    <!--app:popupTheme="@style/AppTheme.AppBarOverlay"-->
+                    <android.support.v7.widget.Toolbar
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="3dp"
+                        android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax"
+                        app:title="" >
+
+                    </android.support.v7.widget.Toolbar>
+
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_horizontal_ntb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </android.support.v4.view.ViewPager>
+            <!--</LinearLayout>-->
+            <!--android:layout_marginBottom="?android:attr/actionBarSize"-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_marginBottom="76dp"-->
+    <!--android:layout_marginRight="16dp"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:tint="#9f90af"-->
+    <!--android:src="@drawable/ic_first"-->
+    <!--app:backgroundTint="#605271"/>-->
+    <devlight.io.library.ntb.NavigationTabBar
+        android:id="@+id/ntb_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        app:ntb_badge_bg_color="#ffff0000"
+        app:ntb_badge_gravity="top"
+        app:ntb_badge_position="left"
+        app:ntb_badge_size="11sp"
+        app:ntb_badge_title_color="#ffffffff"
+        app:ntb_badge_use_typeface="true"
+        app:ntb_badged="true"
+        app:ntb_typeface="fonts/agency.ttf" />
+</android.support.design.widget.CoordinatorLayout>

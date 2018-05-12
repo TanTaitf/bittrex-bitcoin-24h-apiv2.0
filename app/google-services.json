@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1039687765112",
+    "firebase_url": "https://bittrexonline24h.firebaseio.com",
+    "project_id": "bittrexonline24h",
+    "storage_bucket": "bittrexonline24h.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039687765112:android:0a5ff2ea672b4279",
+        "android_client_info": {
+          "package_name": "com.media.tf.appbitcoinbittrex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039687765112-qtcfrt4etoa045iqclmi0rg96dr4k8vs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.media.tf.appbitcoinbittrex",
+            "certificate_hash": "26f32e9f54449bcf317bffe45b873c214099a5f2"
+          }
+        },
+        {
+          "client_id": "1039687765112-7gqa97jec7k8jdp5nop2cv1u130ein8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6wbV7ZzU1EnD_82l7UNi6i9x_0bv-Wg8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039687765112-7gqa97jec7k8jdp5nop2cv1u130ein8c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
