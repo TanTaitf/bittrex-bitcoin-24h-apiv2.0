@@ -1,167 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/zoologo"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_main64" />
-
-    <TextView
-        android:id="@+id/zoo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/zoologo"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="BitCoin 24h"
-        android:textColor="#fff"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <Custom.MyTextView
-        android:id="@+id/signin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/zoo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Sign in"
-        android:textColor="#fff"
-        android:textSize="17dp" />
-
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/signin"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
 
-        <Custom.MyEditText
+        <ImageView
+            android:id="@+id/zoologo"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_main64" />
+
+        <TextView
+            android:id="@+id/zoo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:hint="USERNAME"
-            android:inputType="text"
-            android:paddingLeft="8dp"
-            android:textColorHint="#a9b0c3"
-            android:textSize="14dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_below="@+id/zoologo"
             android:layout_marginTop="10dp"
-            android:background="#a9b0c3"
-
-            ></LinearLayout>
-
-        <Custom.MyEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="#00000000"
-            android:hint="PASSWORD"
-            android:inputType="textPassword"
-            android:paddingLeft="8dp"
-            android:textColorHint="#a9b0c3"
-            android:textSize="14dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="10dp"
-            android:background="#a9b0c3">
-
-        </LinearLayout>
-
-        <Custom.MyTextView
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/round"
             android:gravity="center"
-            android:text="Login"
-            android:textColor="@color/bg_main"
+            android:text="BitCoin 24h"
+            android:textColor="#fff"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
         <Custom.MyTextView
+            android:id="@+id/signin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="or sign in with:"
-            android:textColor="#fff" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/main"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/fb" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/google" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/twiter" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_below="@+id/zoo"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:text="Sign in"
+            android:textColor="#fff"
+            android:textSize="17dp" />
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+
+            <Custom.MyEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="USERNAME"
+                android:inputType="text"
+                android:id="@+id/edt_user"
+                android:paddingLeft="8dp"
+                android:textColorHint="#a9b0c3"
+                android:textColor="#fff"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="#a9b0c3"
+
+                ></LinearLayout>
+
+            <Custom.MyEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="#00000000"
+                android:id="@+id/edt_pass"
+                android:hint="PASSWORD"
+                android:inputType="textPassword"
+                android:paddingLeft="8dp"
+                android:textColor="#fff"
+                android:textColorHint="#a9b0c3"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="#a9b0c3">
+
+            </LinearLayout>
 
             <Custom.MyTextView
-                android:id="@+id/create"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Don't Have An Account ?"
-                android:textColor="#fff"
-                android:textSize="13dp" />
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/round"
+                android:gravity="center"
+                android:text="Login"
+                android:textColor="@color/bg_main"
+                android:textStyle="bold" />
 
             <Custom.MyTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password"
-                android:textColor="#fff"
-                android:textSize="13dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="or sign in with:"
+                android:textColor="#fff" />
 
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/fb" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/google" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/twiter" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <Custom.MyTextView
+                    android:id="@+id/create"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Don't Have An Account ?"
+                    android:textColor="#fff"
+                    android:textSize="13dp" />
+
+                <Custom.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Forgot Password"
+                    android:textColor="#fff"
+                    android:textSize="13dp"
+
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
 
 
 

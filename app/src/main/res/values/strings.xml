@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Bitcoin 24HR</string>
     <string name="logo_desc">Bitcoin 24HR</string>
-
+    <string name="ok">OK</string>
 
     <string name="order_id_mock" translatable="false"># 1234–5678</string>
     <string name="price_mock" translatable="false">$25</string>

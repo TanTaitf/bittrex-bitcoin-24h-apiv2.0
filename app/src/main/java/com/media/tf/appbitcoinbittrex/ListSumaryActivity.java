@@ -1,9 +1,11 @@
 package com.media.tf.appbitcoinbittrex;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -14,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.developers.coolprogressviews.SimpleArcProgress;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -30,6 +32,7 @@ import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
+import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,23 +43,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Model.DataJsonGetTicks;
+import cn.refactor.lib.colordialog.PromptDialog;
 
+import static Model.Config.isNetworkAvailable;
 import static Model.Config.setFont;
 
-//public class ListSumaryActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_list_sumary);
-//    }
-//}
 public class ListSumaryActivity extends AppCompatActivity {
 
     private CandleStickChart mChart;
     private Typeface typeface;
     private String currency = "BTC-CVC";
-    //    Probably _ is a timestamp. tickInterval must be in [“oneMin”, “fiveMin”, “thirtyMin”, “hour”, “day”].
     private String timeoneMin = "oneMin";
     private String timethirtyMin = "thirtyMin";
     private String timeFiveMin = "fiveMin";
@@ -76,102 +72,118 @@ public class ListSumaryActivity extends AppCompatActivity {
     private TextView txt_High,txt_Low;
     // body 3
     private TextView txt_titleOpen,txt_Open,txt_titleClose,txt_Close,txt_titleBaseVl,txt_BaseVl;
-
+    private SimpleArcProgress progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_candlechart);
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        boolean checkInternet = isNetworkAvailable(this);
+        if (checkInternet == false) {
+            new PromptDialog(ListSumaryActivity.this)
+                    .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                    .setAnimationEnable(true)
+                    .setTitleText("ERROR")
+                    .setContentText("No connect to Server !\nPlease check Internet !")
+                    .setPositiveListener(getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                        @Override
+                        public void onClick(PromptDialog dialog) {
+                            finish();
+                        }
+                    }).show();
+        } else {
+            setContentView(R.layout.activity_candlechart);
 
-        }
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.getsuportactionbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
-        currency = intent.getStringExtra("currency").toString().trim();
-        urlLogo = intent.getStringExtra("icon");
-//        TextView title=(TextView)findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
-//        title.setText(currency);
-        typeface = setFont(this,typeface);
-        initView();
-        arrayList = new ArrayList();
-        url = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=" + currency + "&tickInterval=thirtyMin&_=1500915289433";
-        getJsonTicksFromBittrex(url);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+            }
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.getsuportactionbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Intent intent = getIntent();
+            currency = intent.getStringExtra("currency").toString().trim();
+            urlLogo = intent.getStringExtra("icon");
+            //        TextView title=(TextView)findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
+            //        title.setText(currency);
+            typeface = setFont(this, typeface);
+            initView();
+            arrayList = new ArrayList();
+            url = "https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=" + currency + "&tickInterval=thirtyMin&_=1500915289433";
+            getJsonTicksFromBittrex(url);
 
 
-        mChart.getDescription().setEnabled(false);
+            mChart.getDescription().setEnabled(false);
 
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        mChart.setMaxVisibleValueCount(60);
+            // if more than 60 entries are displayed in the chart, no values will be
+            // drawn
+            mChart.setMaxVisibleValueCount(60);
 
-        // scaling can now only be done on x- and y-axis separately
-        mChart.setPinchZoom(false);
+            // scaling can now only be done on x- and y-axis separately
+            mChart.setPinchZoom(false);
 
-        mChart.setDrawGridBackground(false);
+            mChart.setDrawGridBackground(false);
 
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setTextColor(Color.WHITE);
+            XAxis xAxis = mChart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setDrawGridLines(false);
+            xAxis.setTextColor(Color.WHITE);
 
-        YAxis leftAxis = mChart.getAxisLeft();
+            YAxis leftAxis = mChart.getAxisLeft();
 //        leftAxis.setEnabled(false);
 //        leftAxis.setLabelCount(7, false);
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setDrawAxisLine(false);
-        leftAxis.setTextColor(Color.WHITE);
+            leftAxis.setDrawGridLines(false);
+            leftAxis.setDrawAxisLine(false);
+            leftAxis.setTextColor(Color.WHITE);
 
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setEnabled(false);
-        rightAxis.setStartAtZero(false);
+            YAxis rightAxis = mChart.getAxisRight();
+            rightAxis.setEnabled(false);
+            rightAxis.setStartAtZero(false);
 
-        mChart.resetTracking();
-        btn_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/12;
-                setDataChart(num);
-            }
-        });
-        btn_five.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/10;
-                setDataChart(num);
-            }
-        });
-        btn_1hour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/9;
-                setDataChart(num);
-            }
-        });
-        btn_1day.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/8;
-                setDataChart(num);
-            }
-        });
-        btn_1week.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/7;
-                setDataChart(num);
-            }
-        });
-        btn_1month.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = arrayList.size()/6;
-                setDataChart(num);
-            }
-        });
+            mChart.resetTracking();
+            btn_one.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 1500;
+                    setDataChart(num);
+                }
+            });
+            btn_five.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 1200;
+                    setDataChart(num);
+                }
+            });
+            btn_1hour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 700;
+                    setDataChart(num);
+                }
+            });
+            btn_1day.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 500;
+                    setDataChart(num);
+                }
+            });
+            btn_1week.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 30;
+                    setDataChart(num);
+                }
+            });
+            btn_1month.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = arrayList.size() / 10;
+                    setDataChart(num);
+                }
+            });
+        }
 
     }
 
@@ -188,38 +200,41 @@ public class ListSumaryActivity extends AppCompatActivity {
                 entries.add(new CandleEntry(col, (float) arrayList.get(i).getH(), (float) arrayList.get(i).getL(), (float) arrayList.get(i).getO(), (float) arrayList.get(i).getC()));
                 col++;
             }
+            // Entries
+            CandleDataSet set1 = new CandleDataSet(entries, "Data Set");                // setting data
+            set1.setDrawIcons(false);
+            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set1.setColor(Color.YELLOW);
+            set1.setShadowColor(Color.DKGRAY);
+            set1.setShadowWidth(0.2f);
+            set1.setDecreasingColor(Color.RED);
+            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+            set1.setIncreasingColor(Color.rgb(122, 242, 84));
+            set1.setIncreasingPaintStyle(Paint.Style.STROKE);
+            set1.setNeutralColor(Color.BLUE);
+            set1.setValueTextColor(Color.WHITE);
+            set1.setHighlightLineWidth(1f);
+
+            CandleData data = new CandleData(set1);
+            mChart.setData(data);
+            mChart.invalidate();
+            mChart.animateY(950);
+            mChart.getLegend().setEnabled(false);
+            progress.setVisibility(View.GONE);
         }
 
 
-        // Entries
-        CandleDataSet set1 = new CandleDataSet(entries, "Data Set");                // setting data
-        set1.setDrawIcons(false);
-        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set1.setColor(Color.YELLOW);
-        set1.setShadowColor(Color.DKGRAY);
-        set1.setShadowWidth(0.2f);
-        set1.setDecreasingColor(Color.RED);
-        set1.setDecreasingPaintStyle(Paint.Style.FILL);
-        set1.setIncreasingColor(Color.rgb(122, 242, 84));
-        set1.setIncreasingPaintStyle(Paint.Style.STROKE);
-        set1.setNeutralColor(Color.BLUE);
-        set1.setValueTextColor(Color.WHITE);
-        set1.setHighlightLineWidth(1f);
 
-        CandleData data = new CandleData(set1);
-        mChart.setData(data);
-        mChart.invalidate();
-        mChart.animateY(3000);
-        mChart.getLegend().setEnabled(false);
+
     }
 
     void initView() {
         // header
         img_Currency = (ImageView) findViewById(R.id.img_Currency);
-        tvXMa = (TextView)findViewById(R.id.tvXMa);
-        tvXMa.setTypeface(typeface);
-        tvChart = (TextView)findViewById(R.id.tvChart);
-        tvChart.setTypeface(typeface);
+//        tvXMa = (TextView)findViewById(R.id.tvXMa);
+//        tvXMa.setTypeface(typeface);
+//        tvChart = (TextView)findViewById(R.id.tvChart);
+//        tvChart.setTypeface(typeface);
         mChart = (CandleStickChart) findViewById(R.id.chart1);
         // body 1
         btn_one = (Button)findViewById(R.id.btn_one);
@@ -263,7 +278,7 @@ public class ListSumaryActivity extends AppCompatActivity {
         txt_titleBaseVl.setTypeface(typeface);
 
         // set Typeface
-
+        progress = (SimpleArcProgress)findViewById(R.id.progress);
 
         Picasso.get()
                 .load(urlLogo)
@@ -273,7 +288,18 @@ public class ListSumaryActivity extends AppCompatActivity {
 //                    .error(R.drawable.)
                 .into(img_Currency);
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+//        onDestroy();
+//        return;
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Runtime.getRuntime().gc();
+    }
     void getJsonTicksFromBittrex(String url) {
         //Toast.makeText(this, url.toString(), Toast.LENGTH_LONG).show();
         DecimalFormat df = new DecimalFormat("#.######");
@@ -307,10 +333,23 @@ public class ListSumaryActivity extends AppCompatActivity {
                 }
 
 
-                //Toast.makeText(getApplicationContext(), arrayList.size() + "sau khi load", Toast.LENGTH_LONG).show();
-                int numCount = arrayList.size() / 5;
-                setDataChart(numCount);
-                setDataView();
+                if(arrayList.size()>0) {
+                    int numCount = arrayList.size() / 5;
+                    setDataChart(numCount);
+                    setDataView();
+                }else {
+                    new PromptDialog(ListSumaryActivity.this)
+                            .setDialogType(PromptDialog.DIALOG_TYPE_WRONG)
+                            .setAnimationEnable(true)
+                            .setTitleText("ERROR")
+                            .setContentText("No connect to Server !\nPlease check Internet !")
+                            .setPositiveListener(getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                                @Override
+                                public void onClick(PromptDialog dialog) {
+                                    finish();
+                                }
+                            }).show();
+                }
 
 //                adapter = new RecycleAdapter(arrayList, getBaseContext());
 //                recyclerView.setAdapter(adapter);
@@ -321,14 +360,29 @@ public class ListSumaryActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Da huy" + error.toString(), Toast.LENGTH_LONG).show();
-
+               // error.printStackTrace();
+                showDialog();
             }
         });
         requestQueue.add(jsonObjectRequest);
     }
-
+    void showDialog(){
+        PromptDialog promptDialog  = new PromptDialog(ListSumaryActivity.this);
+        promptDialog.setCancelable(false);
+        promptDialog.setDialogType(PromptDialog.DIALOG_TYPE_WRONG);
+        promptDialog.setAnimationEnable(true);
+        promptDialog.setTitleText("INTERNET CONNECT !");
+        promptDialog.setCanceledOnTouchOutside(false);
+        //promptDialog.setContentText("Please input User name and \n"+"Password before login to Server !");
+        promptDialog.setPositiveListener(this.getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                    @Override
+                    public void onClick(PromptDialog dialog) {
+                        finish();
+                        dialog.dismiss();
+                    }
+                });
+        promptDialog.show();
+    }
     void setDataView(){
         DecimalFormat df = new DecimalFormat("#.######");
         DecimalFormat dfVolume = new DecimalFormat("######.###");
@@ -356,55 +410,28 @@ public class ListSumaryActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Bitmap bm= null;
+        if (img_Currency != null)
+        {
+            bm = ((BitmapDrawable)img_Currency.getDrawable()).getBitmap();
+        }
         switch (item.getItemId()) {
-//            case R.id.actionToggleValues: {
-//                for (IDataSet set : mChart.getData().getDataSets())
-//                    set.setDrawValues(!set.isDrawValuesEnabled());
-//
-//                mChart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleIcons: {
-//                for (IDataSet set : mChart.getData().getDataSets())
-//                    set.setDrawIcons(!set.isDrawIconsEnabled());
-//
-//                mChart.invalidate();
-//                break;
-//            }
             case android.R.id.home: {
                 this.finish();
                 break;
             }
             case R.id.actionToggleHighlight: {
-                if (mChart.getData() != null) {
-                    mChart.getData().setHighlightEnabled(!mChart.getData().isHighlightEnabled());
-                    mChart.invalidate();
-                }
+                Alerter.create(ListSumaryActivity.this)
+                        .setTitle(currency)
+                        .setIcon(bm)
+                        .setIconColorFilter(0) // Optional - Removes white tint
+                        .setText("Added " + currency + " to Favorites your !")
+                        .setBackgroundColorInt(getResources().getColor(R.color.pocket_color_4))
+                        .enableProgress(true)
+                        .setProgressColorRes(R.color.white)
+                        .show();
                 break;
             }
-//            case R.id.actionTogglePinch: {
-//                if (mChart.isPinchZoomEnabled())
-//                    mChart.setPinchZoom(false);
-//                else
-//                    mChart.setPinchZoom(true);
-//
-//                mChart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleAutoScaleMinMax: {
-//                mChart.setAutoScaleMinMaxEnabled(!mChart.isAutoScaleMinMaxEnabled());
-//                mChart.notifyDataSetChanged();
-//                break;
-//            }
-//            case R.id.actionToggleMakeShadowSameColorAsCandle: {
-//                for (ICandleDataSet set : mChart.getData().getDataSets()) {
-//                    //TODO: set.setShadowColorSameAsCandle(!set.getShadowColorSameAsCandle());
-//                }
-//
-//                mChart.invalidate();
-//                break;
-//            }
             case R.id.animateX: {
                 mChart.animateX(3000);
                 break;
@@ -418,15 +445,6 @@ public class ListSumaryActivity extends AppCompatActivity {
                 mChart.animateXY(3000, 3000);
                 break;
             }
-//            case R.id.actionSave: {
-//                if (mChart.saveToGallery("title" + System.currentTimeMillis(), 50)) {
-//                    Toast.makeText(getApplicationContext(), "Saving SUCCESSFUL!",
-//                            Toast.LENGTH_SHORT).show();
-//                } else
-//                    Toast.makeText(getApplicationContext(), "Saving FAILED!", Toast.LENGTH_SHORT)
-//                            .show();
-//                break;
-//            }
         }
         return true;
     }

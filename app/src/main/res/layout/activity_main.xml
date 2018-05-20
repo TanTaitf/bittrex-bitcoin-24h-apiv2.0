@@ -15,8 +15,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
-
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
@@ -118,20 +116,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             </android.support.v4.view.ViewPager>
-            <!--</LinearLayout>-->
-            <!--android:layout_marginBottom="?android:attr/actionBarSize"-->
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|end"-->
-    <!--android:layout_marginBottom="76dp"-->
-    <!--android:layout_marginRight="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:tint="#9f90af"-->
-    <!--android:src="@drawable/ic_first"-->
-    <!--app:backgroundTint="#605271"/>-->
     <devlight.io.library.ntb.NavigationTabBar
         android:id="@+id/ntb_horizontal"
         android:layout_width="match_parent"

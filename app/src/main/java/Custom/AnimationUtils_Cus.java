@@ -4,7 +4,7 @@ import android.animation.ObjectAnimator;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * Created by Nguyen Sang on 09/17/2017.
+ * AnimationUtils_Cus animation view RecyclerView
  */
 
 public class AnimationUtils_Cus {

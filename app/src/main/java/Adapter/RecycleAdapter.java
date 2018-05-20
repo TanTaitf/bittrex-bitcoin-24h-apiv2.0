@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.MarketSumary;
+import cn.refactor.lib.colordialog.PromptDialog;
 
 import static Model.Config.setFont;
 
@@ -327,12 +328,40 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
             content_txtBuy_btn2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(context,"Click text",Toast.LENGTH_LONG).show();
+                    // check user login
+                    new PromptDialog(context)
+                            .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                            .setAnimationEnable(true)
+                            .setTitleText("WARNING")
+                            .setContentText("You need Login to your Vallet !")
+                            .setPositiveListener(context.getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                                @Override
+                                public void onClick(PromptDialog dialog) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
+            });
+            content_txtSell_btn3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // check user login
+                    new PromptDialog(context)
+                            .setDialogType(PromptDialog.DIALOG_TYPE_WARNING)
+                            .setAnimationEnable(true)
+                            .setTitleText("WARNING")
+                            .setContentText("You need Login to your Wallet !")
+                            .setPositiveListener(context.getString(R.string.ok), new PromptDialog.OnPositiveListener() {
+                                @Override
+                                public void onClick(PromptDialog dialog) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                 }
             });
             itemView.setOnClickListener(this);
 
-//            // attach click listener to folding cell
+            // attach click listener to folding cell
             fc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -373,11 +402,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         public void onClick(View v) {
             //int pos = getAdapterPosition();
             //MarketSumary arrayListSumary = this.arrayListSumary.get(pos);
-//            try {
-//                fc.toggle(false);
-//            }catch (Exception e){
-//                return;
-//            }
+            //            try {
+            //                fc.toggle(false);
+            //            }catch (Exception e){
+            //                return;
+            //            }
 
             //Toast.makeText(context,"Mơ rong",Toast.LENGTH_LONG).show();
             // get our folding cell

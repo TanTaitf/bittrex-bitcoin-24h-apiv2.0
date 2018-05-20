@@ -74,14 +74,6 @@ public class Adapter_TabNews extends RecyclerView.Adapter<Adapter_TabNews.ViewHo
         }
         preViousPositon=position;
     }
-//    public void animate_down(RecyclerView.ViewHolder viewHolder) {
-//        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.item_animation_fall_down);
-//        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
-//    }
-//    public void animate_up(RecyclerView.ViewHolder viewHolder) {
-//        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.slide_out_right);
-//        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
-//    }
     @Override
     public int getItemCount() {
         return arrayList.size();

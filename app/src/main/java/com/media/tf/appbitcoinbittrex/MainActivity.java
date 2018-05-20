@@ -1,7 +1,7 @@
 package com.media.tf.appbitcoinbittrex;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.Typeface;
@@ -20,10 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -40,6 +37,8 @@ import com.android.volley.toolbox.Volley;
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
+import com.developers.coolprogressviews.SimpleArcProgress;
+import com.geniusforapp.fancydialog.FancyAlertDialog;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -66,6 +65,7 @@ import fragment.FragmentUser;
 import fragment.HomeFragment;
 import fragment.NewspaperFragment;
 
+import static Model.Config.isNetworkAvailable;
 import static Model.Config.setFont;
 import static org.jsoup.Jsoup.parse;
 
@@ -85,18 +85,28 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     private ArrayList<Video> arrayItem;
     public static Handler handler = new Handler();
-    public  NavigationTabBar navigationTabBar;
+    public NavigationTabBar navigationTabBar;
+    private SimpleArcProgress progress;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        typeface = setFont(this, typeface);
+        boolean checkInternet = isNetworkAvailable(this);
+        if (checkInternet == false) {
+            showDialog();
+        } else {
+            setContentView(R.layout.activity_main);
+
+            typeface = setFont(this, typeface);
+
+
 //        if (Build.VERSION.SDK_INT >= 21) {
 //            window = this.getWindow();
-        // window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            // window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 //            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 //            View decorView = getWindow().getDecorView();
 //            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 //                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -104,18 +114,18 @@ public class MainActivity extends AppCompatActivity {
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
 //            window.setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
 //        }
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager.setReverseLayout(true);
-        initView();
-        boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-        boolean PermanentMenuKey = ViewConfiguration.get(this).hasPermanentMenuKey(); // true if physical, false if virtual
+            mLayoutManager = new LinearLayoutManager(getApplicationContext());
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mLayoutManager.setReverseLayout(true);
+            initView();
+//            boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+//            boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+//            boolean PermanentMenuKey = ViewConfiguration.get(this).hasPermanentMenuKey(); // true if physical, false if virtual
 
-        //Toast.makeText(this,PermanentMenuKey+""+ hasBackKey+""+hasHomeKey +"",Toast.LENGTH_LONG).show();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //Toast.makeText(this,PermanentMenuKey+""+ hasBackKey+""+hasHomeKey +"",Toast.LENGTH_LONG).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Window w = getWindow(); // in Activity's onCreate() for instance
+                w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
@@ -126,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
 //                getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //
 //            }
-           // w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-    }
+                // w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            }
 //        if(!PermanentMenuKey && hasBackKey == true) {
 //            Resources resources = MainActivity.this.getResources();
 //            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -140,29 +150,69 @@ public class MainActivity extends AppCompatActivity {
 //                navigationTabBar.setLayoutParams(params);
 //            }
 //        }
+            txtTextSilderShow.setSelected(true);
+            arrayBitCoin = new ArrayList<>();
 
 
-        txtTextSilderShow.setSelected(true);
-        arrayBitCoin = new ArrayList<>();
-        //setSupportActionBar(topToolBar);
+            //setSupportActionBar(topToolBar);
 //        topToolBar.setTitle("Bitcoin 24HR");
 ////        topToolBar.setLogo(R.mipmap.ic_launcher);
 //        topToolBar.setLogoDescription(getResources().getString(R.string.logo_desc));
-        initUI();
-        setSliderShow(rycSliderShow, "", 20, 1, true, false);
-        txtTextSilderShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ListSumaryActivity.class));
-            }
-        });
-        String url_Html = "https://bittrex.com/home/markets";
-        url_Html = "https://news.bitcoin.com/";
-        Random rand = new Random();
-        messageLoop(rand);
+            initUI();
+            setSliderShow(rycSliderShow, "", 20, 1, true, false);
+            txtTextSilderShow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
+            Random rand = new Random();
+            messageLoop(rand);
+        }
 
-//        setUpViewPagerTab();
+    }
+
+    private void showDialog() {
+        FancyAlertDialog.Builder alert = new FancyAlertDialog.Builder(MainActivity.this)
+                .setimageResource(R.drawable.ic_cloud_computing)
+                .setTextTitle("INTERNET")
+                .setTextSubTitle("INTERNET NOT CONNECT?")
+                .setBody("You Sure Internet Connected !")
+                .setNegativeColor(R.color.colorNegative)
+                .setNegativeButtonText("NO, EXIT !")
+                .setOnNegativeClicked(new FancyAlertDialog.OnNegativeClicked() {
+                    @Override
+                    public void OnClick(View view, Dialog dialog) {
+                        finishAffinity();
+                        dialog.dismiss();
+                        onDestroy();
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                })
+                .setPositiveButtonFont("fonts/Lato-Regular.ttf")
+                .setPositiveButtonText("YES, RELOAD !")
+                .setPositiveColor(R.color.colorPositive)
+                .setOnPositiveClicked(new FancyAlertDialog.OnPositiveClicked() {
+                    @Override
+                    public void OnClick(View view, Dialog dialog) {
+//                        finish();
+                        finishAffinity();
+                        startActivity(getIntent());
+                    }
+                })
+                .setBodyGravity(FancyAlertDialog.TextGravity.CENTER)
+                .setTitleGravity(FancyAlertDialog.TextGravity.CENTER)
+                .setSubtitleGravity(FancyAlertDialog.TextGravity.CENTER)
+                .setCancelable(false)
+                .setNegativeButtonFont("fonts/Lato-Regular.ttf")
+                .setTitleFont("fonts/Lato-Regular.ttf")
+                .setSubTitleFont("fonts/Lato-Regular.ttf")
+                .setBodyFont("fonts/Lato-Regular.ttf")
+                .build();
+
+        alert.show();
+
     }
 
     private static String docNoiDung_Tu_URL(String theUrl) {
@@ -252,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     int n = rand.nextInt(arrtemp.size());
-                    arrayItem.add(new Video(title, anhurl, arrtemp.get(n).toString(),url_web));
+                    arrayItem.add(new Video(title, anhurl, arrtemp.get(n).toString(), url_web));
                 }
 
 
@@ -357,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
         //findViewById(R.id.txtSliderShow).setSelected(true);
         txtTextSilderShow = (TextView) findViewById(R.id.txtSliderShow);
         txtTextSilderShow.setTypeface(typeface);
-
+//        progress = (SimpleArcProgress) findViewById(R.id.progress);
         //topToolBar = (Toolbar)findViewById(R.id.myToolBar);
     }
 
@@ -385,9 +435,11 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        int n = rand.nextInt(arrayItem.size());
-                        txtTextSilderShow.setText(arrayItem.get(n).getTitle().toString());
-                        handler.postDelayed(this, 7000);
+                        if(arrayItem.size()>0) {
+                            int n = rand.nextInt(arrayItem.size());
+                            txtTextSilderShow.setText(arrayItem.get(n).getTitle().toString());
+                            handler.postDelayed(this, 7000);
+                        }
 
                     }
                 });
@@ -396,16 +448,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViewPagerTab(ViewPager viewpager) {
-        AdapterPagerFragment adapter= new AdapterPagerFragment(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment(),"");
+        AdapterPagerFragment adapter = new AdapterPagerFragment(getSupportFragmentManager());
+        adapter.addFragment(new HomeFragment(), "");
 
-        adapter.addFragment(new NewspaperFragment(),"");
-        adapter.addFragment(new FragmentUser(),"");
-        adapter.addFragment(new CommentFragment(),"");
+        adapter.addFragment(new NewspaperFragment(), "");
+        adapter.addFragment(new FragmentUser(), "");
+        adapter.addFragment(new CommentFragment(), "");
 
         viewpager.setOffscreenPageLimit(limitNumberOfPages);
         viewpager.setAdapter(adapter);
-        viewpager.setPageTransformer(false,new FlipPageViewTransformer());
+        viewpager.setPageTransformer(false, new FlipPageViewTransformer());
 
 
 //        tabLayout.setupWithViewPager(viewpager);
@@ -614,6 +666,38 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity();
+            onDestroy();
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            //System.exit(0);
+            //return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit !", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        Runtime.getRuntime().gc();
+        super.onDestroy();
+    }
+
     private void initUI() {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
 
@@ -664,7 +748,6 @@ public class MainActivity extends AppCompatActivity {
 //                return view;
 //            }
 //        });
-
 
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
@@ -785,72 +868,16 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setNestedScrollingEnabled(false);
         final ArrayList<Video> arrayList = getHtml1();
 
+        if (arrayList.size() > 0) {
+            final SliderShowAdapter adapter = new SliderShowAdapter(arrayList, getApplicationContext());
+            //final Adapter_Tab_3 adapter = new Adapter_Tab_3(arrayList,getActivity());
+            mRecyclerView.setAdapter(adapter);
 
-        final SliderShowAdapter adapter = new SliderShowAdapter(arrayList, getApplicationContext());
-        //final Adapter_Tab_3 adapter = new Adapter_Tab_3(arrayList,getActivity());
-        mRecyclerView.setAdapter(adapter);
-
-        if (action == true) {
-            setAutoScroll(mRecyclerView, adapter);
+            if (action == true) {
+                setAutoScroll(mRecyclerView, adapter);
+            }
+//            progress.setVisibility(View.GONE);
         }
-
-
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        Toast.makeText(this,"load anh", Toast.LENGTH_LONG).show();
-//        final String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=android&type=video&maxResults=20&key=AIzaSyBmTVXZn7dsnLL__gLeK2EPL_5_z-igqCw";
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                arrayList.clear();
-//                JSONObject item ;
-//                JSONObject id ;
-//                String idvideo ;
-//                JSONObject jsonSpinet ;
-//                String title = "";
-//                String dertion = "";
-//                JSONObject jsonthumnail ;
-//                JSONObject jsondefault ;
-//                String imaview = "";
-//                String chanelTitle = "";
-//                String dayupl = "";
-//                JSONArray jsonitem = response.optJSONArray("items");
-//                for (int j = 0; j < jsonitem.length();j++)
-//                {
-//                    item = jsonitem.optJSONObject(j);
-//                    id = item.optJSONObject("id");
-//                    idvideo = id.optString("videoId");
-//
-//
-//                    jsonSpinet = item.optJSONObject("snippet");
-//                    title = jsonSpinet.optString("title");
-//                    dertion = jsonSpinet.optString("description");
-//
-//                    jsonthumnail = jsonSpinet.optJSONObject("thumbnails");
-//                    jsondefault = jsonthumnail.optJSONObject("medium");
-//                    imaview = jsondefault.optString("url");
-//                    chanelTitle = jsonSpinet.optString("channelTitle");
-//                    dayupl = jsonSpinet.optString("publishedAt");
-//                    arrayList.add(new Video(idvideo,title,dertion,imaview,chanelTitle, dayupl));
-//
-//                }
-//                //adapterVideo.notifyDataSetChanged();
-//                final SliderShowAdapter adapter = new SliderShowAdapter(arrayList,getApplicationContext());
-//                //final Adapter_Tab_3 adapter = new Adapter_Tab_3(arrayList,getActivity());
-//                mRecyclerView.setAdapter(adapter);
-//
-//                if (action==true){
-//                    setAutoScroll(mRecyclerView,adapter);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        requestQueue.add(jsonObjectRequest);
-//        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.END);
-//        snapHelperStart.attachToRecyclerView(mRecyclerView);
 
     }
 

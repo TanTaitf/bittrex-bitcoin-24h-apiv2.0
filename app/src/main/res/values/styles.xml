@@ -17,9 +17,9 @@
     <style name="AppThemeChart" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#40737e</item>
-        <item name="colorPrimaryDark">@color/transparent</item>
+        <item name="colorPrimaryDark">#40737e</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:height">27dp</item>
+        <item name="android:height">26dp</item>
         <item name="android:windowTranslucentStatus">true</item>
 
     </style>

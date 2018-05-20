@@ -145,4 +145,9 @@
     <color name="holo_green_dark">#669900</color>
     <color name="holo_purple_dark">#9933cc</color>
     <color name="holo_red_dark">#cc0000</color>
+
+
+    <color name="colorPositive">#40596B</color>
+
+    <color name="colorNegative">#FF7058</color>
 </resources>

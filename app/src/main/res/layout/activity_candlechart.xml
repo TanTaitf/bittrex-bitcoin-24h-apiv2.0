@@ -1,60 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:theme="@style/AppThemeChart"
     android:weightSum="3"
     android:background="@color/mainTextColor"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+    <com.developers.coolprogressviews.SimpleArcProgress
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:arcRadius="30dp"
+        android:id="@+id/progress"/>
     <LinearLayout
         android:layout_weight="0.1"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:weightSum="3"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="0dp">
-
-        <TextView
-            android:layout_weight="1"
-            android:id="@+id/tvXMa"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="Analytic"
-            android:layout_gravity="center"
-            android:textColor="@color/contentDividerLine"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ImageView
-            android:layout_weight="1"
-            android:id="@+id/img_Currency_1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:gravity="center">
-        </ImageView>
-        <TextView
-            android:layout_weight="1"
-            android:id="@+id/tvChart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/contentDividerLine"
-            android:text="Chart"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
     <com.github.mikephil.charting.charts.CandleStickChart
         android:id="@+id/chart1"
+        android:layout_marginTop="25dp"
         android:layout_weight="1.5"
         android:layout_margin="5dp"
         android:background="@color/mainTextColor"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
     <LinearLayout
-        android:layout_weight="1.5"
+        android:layout_weight="1.4"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
@@ -149,29 +126,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_marginTop="1dp"-->
-                <!--android:layout_weight="0.6"-->
-                <!--android:weightSum="2">-->
-                <!---->
-                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="wrap_content">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:src="@drawable/menu_icon"/>&ndash;&gt;-->
 
-                <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
-
-            <!--</LinearLayout>-->
-            <!--android:background="@color/mainTextColor"-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -258,7 +213,7 @@
                             android:src="@drawable/ic_sortdown"
                             android:layout_height="45dp" />
 
-                        <TextView
+                        <Custom.MyTextView
                             android:id="@+id/txt_titleHigh"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -317,7 +272,7 @@
                                 android:layout_weight="0.8"
                                 android:src="@drawable/ic_sortup1"
                                 android:layout_height="45dp" />
-                            <TextView
+                            <Custom.MyTextView
                                 android:id="@+id/txt_titleLow"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"

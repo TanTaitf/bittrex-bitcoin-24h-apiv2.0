@@ -1,7 +1,7 @@
 package fragment;
 
 /**
- * Created by Nguyen Sang on 10/20/2017.
+ * Created by tfmedia on 10/20/2017.
  */
 
 import android.support.v4.view.ViewPager;

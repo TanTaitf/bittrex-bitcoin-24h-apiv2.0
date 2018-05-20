@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Adapter fragment viewpager
  */
 
 public class AdapterPagerFragment extends FragmentPagerAdapter {

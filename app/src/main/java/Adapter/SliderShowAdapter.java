@@ -22,7 +22,7 @@ import Model.Video;
 import static Model.Config.setFont;
 
 /**
- * Created by Nguyen Sang on 09/14/2017.
+ * SliderShowAdapter show view on top
  */
 
 public class SliderShowAdapter extends RecyclerView.Adapter<SliderShowAdapter.ViewHolder> {
@@ -96,15 +96,12 @@ public class SliderShowAdapter extends RecyclerView.Adapter<SliderShowAdapter.Vi
             mChapter = (TextView) itemView.findViewById(R.id.txtChapter);
             mChapter.setTypeface(typeFace);
             imgHinhTruyen = (ImageView) itemView.findViewById(R.id.imgTruyen);
-//            imgHinhTruyen.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Video data = this.arrayListItem.get(pos);
-//            context.startActivity(new Intent(context, NewsTopActivity.class)
-//                    .putExtra("id", data.getId()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             String url = data.getId();
 
             new FinestWebView.Builder(context)
@@ -113,52 +110,7 @@ public class SliderShowAdapter extends RecyclerView.Adapter<SliderShowAdapter.Vi
                     .webViewDisplayZoomControls(true)
                     .dividerHeight(0)
                     .gradientDivider(false)
-//                    .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
-//                            R.anim.activity_close_enter, R.anim.activity_close_exit)
-
                     .show(url);
-
-            ////                    .toolbarScrollFlags(0)
-            //                    .webViewJavaScriptEnabled(true)
-            //                    .webViewUseWideViewPort(false)
-
-
-// .injectJavaScript("javascript: document.getElementById('msg').innerHTML='Hello "
-//                    + "TheFinestArtist"
-//                    + "!';")
-
-
-
-
-
-
-//            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//            CustomTabsIntent customTabsIntent = builder.build();
-//            customTabsIntent.launchUrl((Activity) context, Uri.parse(url));
-
-
-//            Intent intent= new Intent(context,TruyenTranhChiTiet.class);
-//            intent.putExtra("linkTruyen",truyenTranh.getId());
-//            context.startActivity(intent);
-//            Intent intent = new Intent(context, PlayVideoAcivity.class);
-//            intent.putExtra("crash", true);
-//            intent.putExtra("id",truyenTranh.getId());
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//            AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendingIntent);
-
-//            try {
-//                pendingIntent.send();
-//            } catch (PendingIntent.CanceledException e) {
-//                e.printStackTrace();
-//            }
-            //context.startActivity(new Intent(context,PlayVideoAcivity.class).putExtra("id", truyenTranh.getId()));
-
-//            context1.startActivity(new Intent(context1,PlayVideoAcivity.class)
-//                    .putExtra("id",truyenTranh.getId()));
 
         }
 

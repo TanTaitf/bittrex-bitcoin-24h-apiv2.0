@@ -87,16 +87,6 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <!--<LinearLayout-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginTop="10dp">-->
-
-                            <!--&lt;!&ndash;<com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:id="@+id/custom_switcher"&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
-                            <!--</LinearLayout>-->
                         </LinearLayout>
 
                         <RelativeLayout
@@ -210,120 +200,6 @@
 
                         </RelativeLayout>
 
-                        <!--<LinearLayout-->
-                        <!--android:id="@+id/share_main"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:gravity="center"-->
-                        <!--android:padding="4dp">-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_facebook"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/icons_facebook_32" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_gplus"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/ic_gplus"-->
-                        <!--android:text="Google Plus" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_linkedin"-->
-                        <!--android:layout_width="wrap_content"-->
-
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/ic_linked"-->
-                        <!--android:text="Linkedin" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_email"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/icons_gmail_32"-->
-                        <!--android:text="Email" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_messages"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/ic_mss"-->
-                        <!--android:text="Messages" />-->
-
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_tumblr"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/ic_tumblr"-->
-                        <!--android:text="Tumblr" />-->
-
-                        <!--<ImageView-->
-                        <!--android:id="@+id/button_twitter"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:src="@drawable/icons_twitter_32" />-->
-
-                        <!--</LinearLayout>-->
-
-                        <!--<LinearLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:gravity="center">-->
-
-                        <!--<com.wang.avi.AVLoadingIndicatorView-->
-                        <!--android:id="@+id/avi3"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--app:indicatorColor="#2bc0c6"-->
-                        <!--app:indicatorName="BallClipRotatePulseIndicator" />-->
-
-                        <!--<com.wang.avi.AVLoadingIndicatorView-->
-                        <!--android:id="@+id/avi"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--app:indicatorColor="#f4eb40"-->
-                        <!--app:indicatorName="BallClipRotatePulseIndicator" />-->
-
-                        <!--<com.wang.avi.AVLoadingIndicatorView-->
-                        <!--android:id="@+id/avi1"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--app:indicatorColor="#e6123c"-->
-                        <!--app:indicatorName="BallScaleRippleMultipleIndicator" />-->
-
-
-                        <!--<com.wang.avi.AVLoadingIndicatorView-->
-                        <!--android:id="@+id/avi2"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--app:indicatorColor="#1dfd11"-->
-                        <!--app:indicatorName="BallClipRotatePulseIndicator" />-->
-
-                        <!--<com.wang.avi.AVLoadingIndicatorView-->
-                        <!--android:id="@+id/avi5"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="60dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--app:indicatorColor="#da29ea"-->
-                        <!--app:indicatorName="BallClipRotatePulseIndicator" />-->
-                        <!--</LinearLayout>-->
 
                         <LinearLayout
                             android:layout_width="match_parent"
