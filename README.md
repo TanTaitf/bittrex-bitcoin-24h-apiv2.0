@@ -2,6 +2,7 @@
 # bittrex-bitcoin-24h-apiv2.0
 # Bittrex API Reference (Unofficial)
 [Bittrex API Document](https://github.com/thebotguys/golang-bittrex-api/wiki/Bittrex-API-Reference-(Unofficial))
+#
 [![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://youtu.be/L1RwEe1awfg)
 
 # BitCoin 24h Review
